@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class BruteForceSearch {
     public static void main(String[] args) {
         int[] sameTest1 = {1, 2};
@@ -15,6 +13,17 @@ public class BruteForceSearch {
         System.out.println(isValid(validTest2));
         System.out.println(isValid(validTest3));
         String[] compoundTest1 = {"fire", "place", "cat", "kitty", "kittycat", "fire", "fireplace"};
+        System.out.println(countCompounds(compoundTest1));
+        Point a = new Point(0, 0);
+        Point b = new Point(1, 1);
+        Point c = new Point(3,3);
+        Point d = new Point(10, 5);
+        Point e = new Point(3, 7);
+        Point[] points = {a, b, c, d, e};
+        Point[] triangle = largestTriangle(points);
+        System.out.println(triangle[0]);
+        System.out.println(triangle[1]);
+        System.out.println(triangle[2]);
     }
 
     public static boolean sameValues(int[] arr1, int[] arr2) {
@@ -61,15 +70,17 @@ public class BruteForceSearch {
         for (int i = 0; i < words.length; i++) {
             for (int j = i + 1; j < words.length; j++) {
                 String compound = words[i] + words[j];
-                for (int k = j + 1; k < words.length; k++) {
+                for (int k = 0; k < words.length; k++) {
                     if (words[k].contains(compound)) {
                         compounds++;
+                        System.out.println(words[k]);
                     }
                 }
                 compound = words[j] + words[i];
-                for (int k = j + 1; k < words.length; k++) {
+                for (int k = 0; k < words.length; k++) {
                     if (words[k].contains(compound)) {
                         compounds++;
+                        System.out.println(words[k]);
                     }
                 }
             }
@@ -78,19 +89,29 @@ public class BruteForceSearch {
     }
 
     public static Point[] largestTriangle(Point[] points) {
-        int largestArea = Integer.MIN_VALUE;
+        double largestArea = Integer.MIN_VALUE;
         Point[] toReturn = new Point[3];
         for (int i = 0; i < points.length; i++) {
             for (int j = i + 1; j < points.length; j++) {
                 for (int k = j + 1; k < points.length; k++) {
-                    int area = 0;
+                    double a = getDistance(points[i], points[j]);
+                    double b = getDistance(points[i], points[k]);
+                    double c = getDistance(points[j], points[k]);
+                    double s = (a + b + c)/2;
+                    double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
                     if (area > largestArea) {
                         largestArea = area;
-                        //set toReturn to points.get(i), points.get(j), points,get(k)
+                        toReturn[0] = points[i];
+                        toReturn[1] = points[j];
+                        toReturn[2] = points[k];
                     }
                 }
             }
         }
         return toReturn;
+    }
+
+    private static double getDistance(Point a, Point b) {
+        return Math.sqrt((Math.pow((b.getX() - a.getX()), 2.0)) + (Math.pow((b.getY() - a.getY()), 2.0)));
     }
 }
