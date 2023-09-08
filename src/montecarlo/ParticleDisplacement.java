@@ -1,3 +1,5 @@
+package montecarlo;
+
 public class ParticleDisplacement {
     public static void main(String[] args) {
         System.out.println("1 random step has an average displacement of " + runSimulation(1));

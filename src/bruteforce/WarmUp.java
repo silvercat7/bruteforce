@@ -1,3 +1,5 @@
+package bruteforce;
+
 public class WarmUp {
     public static void main(String[] args) {
         String[] names = {"Bilbo", "Elmo", "Wally"};

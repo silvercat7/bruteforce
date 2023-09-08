@@ -1,3 +1,5 @@
+package bruteforce;
+
 public class BruteForceSearch {
     public static void main(String[] args) {
         int[] sameTest1 = {1, 2};
